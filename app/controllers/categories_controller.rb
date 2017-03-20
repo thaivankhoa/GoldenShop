@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
 
-	class CategoriesController < ApplicationController
 
 	before_action :require_admin, except: [:index, :show]
 
@@ -49,7 +48,7 @@ class CategoriesController < ApplicationController
 			end
 		end
 
-	end
+	
 end	
 	
 

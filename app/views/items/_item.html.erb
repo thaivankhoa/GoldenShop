@@ -22,6 +22,10 @@
 							<strong>Last updated : </strong> <%= time_ago_in_words(item.updated_at) %> ago.
 						</small>
 					</div>
+					
+					<% if item.categories.any? %>
+						<p><strong>Categories : </strong><%= render item.categories %></p>
+					<% end %>
 
 					<div class="item-actions">
 						<% if logged_in? && (current_user == item.user || current_user.admin?) %>

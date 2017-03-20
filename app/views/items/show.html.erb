@@ -28,7 +28,9 @@
 						<%=  link_to @item.quantity_stock, item_path(@item) %>
 					</div>	
 	<!-- tag -->
-	
+	<% if @item.categories.any? %>
+		<p><strong>Categories: </strong><%= render @item.categories %></p>
+	<% end %>
 	<!-- tag -->
 	<div class="item-actions">
 		<% if logged_in? && (current_user == @item.user || current_user.admin?) %>

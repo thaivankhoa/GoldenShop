@@ -58,9 +58,9 @@ class ItemsController < ApplicationController
 		def set_item
 			@item = Item.find(params[:id])
 		end
-
+		# Category_ids: [] Add for checkbok input
 		def item_params
-			params.require(:item).permit(:title, :description, :price, :quantity_stock)
+			params.require(:item).permit(:title, :description, :price, :quantity_stock, category_ids: [])
 		end
 
 		def require_same_user
