@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
 	def create
 		#render plain: params[:article].inspect
 		@item = Item.new(item_params)
-		@item.user = User.last
+		@item.user = current_user
 		if @item.save 
 			flash[:success] = " Item was succesfully created"
 			#debugger
