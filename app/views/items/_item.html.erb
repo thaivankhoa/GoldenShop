@@ -1,0 +1,28 @@
+
+	<% obj.each do |item| %>
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="well well-lg">
+					<div class="article-titles">
+						<%= link_to item.title, item_path(item) %>	
+					</div>
+					<div class="article-body"> 						
+						<%=  truncate(item.description, length: 100) %>
+					</div>	
+					
+					<div class="article-meta-details">
+						<small> <strong>Create by : </strong><%= link_to(item.user.username , user_path(item.user))if item.user %>,
+							<%= time_ago_in_words(item.created_at)%> ago,
+							<strong>Last updated : </strong> <%= time_ago_in_words(item.updated_at) %> ago.
+						</small>
+					</div>
+
+					
+
+				</div>
+			</div>
+		</div>
+
+	<% end %>
+
+</table>
