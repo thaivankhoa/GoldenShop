@@ -1,0 +1,39 @@
+<h1 class="custom_h1">Create new categories</h1>
+
+<%= render 'shared/errors_categories', obj: @category %>
+
+<!-- Create Form -->
+<div class="row">
+	<div class="col-xs-12">
+		<!-- Create Form -->		
+		<%= form_for(@category, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+			<!-- Title -->
+			<div class="form-group">
+
+				<div class="control-label col-sm-2">		
+					<%= f.label :name %>
+				</div>
+
+				<div class="col-sm-8">	
+					<%= f.text_field :name, class: "form-control", placeholder: "Enter your category's name", autofocus: true %>
+				</div>	
+
+			</div>
+			
+			<!-- Submit btn -->
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<%= f.submit class: "btn btn-primary btn-lg" %>
+				</div>		
+			</div>
+	</div>
+</div>
+
+				
+		<% end %>
+		<div class="col-xs-4 col-sm-offset-4">					
+			<%= link_to 'Cancel request and return to item listing', items_path%>
+		</div>
+
+	</div>
+</div>

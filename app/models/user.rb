@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
 	has_many :items, dependent: :destroy
-
+	
 	before_save { self.email = email.downcase }
 
 	validates :username, presence: true, 

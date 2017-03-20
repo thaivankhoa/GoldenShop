@@ -1,0 +1,19 @@
+<h1 class="custom_h1"><%= "Category: " + @category.name %></h1>
+<!--
+<p>
+	<%= link_to "Create new items", new_article_path %>
+</p>
+-->
+<div align="center">
+
+	<%= will_paginate @category_items %>
+
+</div>
+
+	<%= render 'items/item', obj: @category_items %>
+
+<div align="center">
+
+	<%= will_paginate @category_items %>
+
+</div>
