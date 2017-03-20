@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170319165602) do
   create_table "items", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.text     "price"
+    t.float    "price"
     t.integer  "quantity_stock"
     t.datetime "created_at"
     t.datetime "updated_at"
