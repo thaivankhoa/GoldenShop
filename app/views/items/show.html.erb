@@ -18,23 +18,26 @@
 <% end %>
 
 	<h4 class="center description"><strong>Description:</strong></h4>
-	<hr>
-	<%= simple_format@item.description %>
-	<hr>
-	<%= @item.price.round(2) %>
-	<hr>
-	<%= @item.quantity_stock %>
+	<div class="article-body"> 						
+						<%=  truncate(@item.description, length: 100) %>
+					</div>
+					<div class="article-body"> 						
+						$<%=  link_to @item.price.round(2), item_path(@item) %>
+					</div>	
+					<div class="article-body"> 						
+						<%=  link_to @item.quantity_stock, item_path(@item) %>
+					</div>	
 	<!-- tag -->
 	
 	<!-- tag -->
 	<div class="item-actions">
-		
+		<% if logged_in? && (current_user == @item.user || current_user.admin?) %>
 			<%= link_to 'Edit this item', edit_item_path(@item), class: "btn btn-xs btn-primary" %>
 			<%= link_to "Delete this item", item_path(@item), method: :delete, 
 													data: {confirm: "Are you sure?"}, 
 													class: "btn btn-xs btn-danger" %>
 
-			
+		<% end %>	
 
 		<%= link_to 'Back to Item Listing', items_path, class: "btn btn-xs btn-success" %>
 		

@@ -2,10 +2,10 @@ class UsersController < ApplicationController
 
 	before_action :set_user, only: [:edit, :update, :show]
 
-	# before_action :require_user, except: [:index, :show] 
-	# before_action :require_same_user, only: [:edit, :update, :destroy]
+	before_action :require_user 
+	before_action :require_same_user, only: [:edit, :update, :destroy]
 
-	# before_action :require_admin, only: [:destroy]
+	before_action :require_admin, only: [:destroy]
 
 	def index
 		@users = User.paginate(page: params[:page], per_page: 5)
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
 	def show
 		
-		# @user_items = @user.items.paginate(page: params[:page], per_page: 5)
+		@user_items = @user.items.paginate(page: params[:page], per_page: 5)
 	end
 
 	def destroy
@@ -63,18 +63,18 @@ class UsersController < ApplicationController
 			@user = User.find(params[:id])
 		end
 		#same user or admin
-		#def require_same_user
-		#	if current_user != @user and !current_user.admin?
-		#	flash[:danger] = "You can only edit your own account"
-		#	redirect_to root_path	
-		#end
+		def require_same_user
+			if current_user != @user and !current_user.admin?
+			flash[:danger] = "You can only edit your own account"
+			redirect_to root_path	
+		end
 
-		#def require_admin
-		#	if logged_in? and !current_user.admin?
-		#		flash[:danger] = "Only Admin can perform that action"
-		#		redirect_to root_path
-		#	end
-		#end
-
+		def require_admin
+			if logged_in? and !current_user.admin?
+				flash[:danger] = "Only Admin can perform that action"
+				redirect_to root_path
+			end
+		end
+	end	
 	
 end

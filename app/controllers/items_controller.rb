@@ -2,6 +2,10 @@ class ItemsController < ApplicationController
 
 	before_action :set_item, only: [:edit, :update, :show, :destroy]
 
+	
+	before_action :require_user, except: [:index, :show]
+	before_action :require_same_user, only: [:edit, :update, :destroy]
+
 	def index
 		@items = Item.all
 		@items = Item.paginate(page: params[:page], per_page: 5)
@@ -60,10 +64,11 @@ class ItemsController < ApplicationController
 		end
 
 		def require_same_user
+			if current_user != @item.user and !current_user.admin?
 			flash[:danger] = "You can only edit or delete your own items"
 			redirect_to root_path	
 		end
-
+	end
 end	
 	
 
