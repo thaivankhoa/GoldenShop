@@ -19,9 +19,12 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		
 		if @user.save 
-			flash[:success] = "Welcome to Goldenshop"
-			session[:user_id] = @user.id
-			redirect_to user_path(@user)
+			if params[:user][:avatar].present?
+				render :crop
+			else
+				flash[:success] = "Welcome to Goldenshop"
+				redirect_to login_path
+			end
 		else
 			render 'new'
 		end
@@ -34,8 +37,12 @@ class UsersController < ApplicationController
 	def update
 		
 		if @user.update(user_params)
-			flash[:success] = "Your account has successfully edited"
-			redirect_to items_path
+			if params[:user][:avatar].present?
+				render :crop
+			else
+				flash[:success] = "Your account has successfully edited"
+				redirect_to items_path
+			end
 		else
 			render 'edit'
 		end
@@ -58,7 +65,7 @@ class UsersController < ApplicationController
 
 	private
 		def user_params
-			params.require(:user).permit(:username, :email, :password)
+			params.require(:user).permit(:username, :email, :password, :avatar)
 		end
 
 		def set_user
