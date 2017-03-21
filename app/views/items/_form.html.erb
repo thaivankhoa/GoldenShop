@@ -70,6 +70,20 @@
 				</div>
 
 			</div>
+			<!-- Image -->
+			<% if logged_in? %>
+				<div class="form-group">
+
+					<div class="control-label col-sm-2">
+						<%= f.label :image %>
+					</div>
+				
+					<div class="col-sm-8">
+						<%= f.file_field :image, class: "form-control", placeholder: "Your item imgage..." %>
+					</div>
+				
+				</div>
+			<% end %>
 			<!-- Submit btn -->
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">

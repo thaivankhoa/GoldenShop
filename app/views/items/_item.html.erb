@@ -6,6 +6,11 @@
 					<div class="article-titles">
 						<%= link_to item.title, item_path(item) %>	
 					</div>
+					<div class="article-body">
+						<div align="left">
+							<%= image_tag item.image.url, style:"height: 150px ; width: 100px;" if item.image? %>
+						</div>
+					</div>
 					<div class="article-body"> 						
 						<%=  truncate(item.description, length: 100) %>
 					</div>

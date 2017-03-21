@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
 		end
 		# Category_ids: [] Add for checkbok input
 		def item_params
-			params.require(:item).permit(:title, :description, :price, :quantity_stock, category_ids: [])
+			params.require(:item).permit(:title, :description, :price, :quantity_stock, :image, category_ids: [])
 		end
 
 		def require_same_user

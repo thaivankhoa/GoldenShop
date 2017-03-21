@@ -18,15 +18,20 @@
 <% end %>
 
 	<h4 class="center description"><strong>Description:</strong></h4>
-	<div class="article-body"> 						
-						<%=  truncate(@item.description, length: 100) %>
-					</div>
-					<div class="article-body"> 						
-						$<%=  link_to @item.price.round(2), item_path(@item) %>
-					</div>	
-					<div class="article-body"> 						
-						<%=  link_to @item.quantity_stock, item_path(@item) %>
-					</div>	
+		<div class="article-body">
+			<div align="center">
+				<%= image_tag @item.image.url, style:"height: 150px ; width: 100px;" if @item.image? %>
+			</div>
+		</div>
+		<div class="article-body"> 						
+			<%=  truncate(@item.description, length: 100) %>
+		</div>
+		<div class="article-body"> 						
+			$<%=  link_to @item.price.round(2), item_path(@item) %>
+		</div>	
+		<div class="article-body"> 						
+			<%=  link_to @item.quantity_stock, item_path(@item) %>
+		</div>	
 	<!-- tag -->
 	<% if @item.categories.any? %>
 		<p><strong>Categories: </strong><%= render @item.categories %></p>
