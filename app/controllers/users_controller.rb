@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 				render :crop
 			else
 				flash[:success] = "Welcome to Goldenshop"
-				redirect_to login_path
+				redirect_to root_path
 			end
 		else
 			render 'new'
