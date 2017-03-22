@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   resources :orderitems
 
+  resources :orders
+
 end

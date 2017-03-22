@@ -8,7 +8,16 @@ module ApplicationHelper
 		gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
 
 		image_tag(gravatar_url, alt: user.username, class: "img-circle")
+		end
 
-	end
+		def Total_price(obj)
+			sum = 0
+			obj.each do |obj|
+				sum += obj.quantity_order * obj.order_item_price
+			end
+			
+			sum
+			
+		end
 
 end
