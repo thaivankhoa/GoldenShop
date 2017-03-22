@@ -8,15 +8,11 @@ class CartsController < ApplicationController
 	end
 
 	def new
-		@cart = Cart.new
-		flash[:success] = "new cart"
+		
 	end
 
 	def create
-		@cart = Cart.new
-		@cart.save
-		flash[:success] = "New cart has been created"
-		redirect_to root_path
+		
 	end
 
 	def update
@@ -24,12 +20,12 @@ class CartsController < ApplicationController
 	end
 
 	def destroy
-		@cart.destroy
-		flash[:danger] = "Cart has been destroyed"
+		
 	end
 
-	def show
-
+	def show		
+		@cart = Cart.find(session[:cart_id])
+		
 	end
 
 	private
