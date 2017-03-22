@@ -16,5 +16,10 @@ class ApplicationController < ActionController::Base
         flash[:danger] = "You must be logged in to perform that action"
         redirect_to root_path
       end
-    end
+  end
+
+  # def current_cart
+   # @current_cart = Cart.find(session[:cart_id]) if session[:cart_id]
+  # end
+
 end
