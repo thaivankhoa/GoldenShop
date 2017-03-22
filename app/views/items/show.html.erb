@@ -45,8 +45,15 @@
 													class: "btn btn-xs btn-danger" %>
 
 		<% end %>	
-
+		
 		<%= link_to 'Back to Item Listing', items_path, class: "btn btn-xs btn-success" %>
 		
+		<%= form_for(:order_item, :url => orderitems_path,:html => {class: "form-horizontal", role: "form"}) do |f| %>
+			<%= f.hidden_field :order_item_title, value: @item.title, class: "form-control" %> 
+			<%= f.label :quantity_order %>
+			<%= f.text_area :quantity_order, class: "form-control", placeholder: "Price of item" %>
+			<%= f.hidden_field :order_item_price, value: @item.price, class: "form-control", placeholder: "Price of item" %>
+			<%= f.submit class: "btn btn-primary btn-lg" %>
+		<% end%>
 	</div>
 </div>
