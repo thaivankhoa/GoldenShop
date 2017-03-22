@@ -9,11 +9,9 @@ class OrderitemsController < ApplicationController
 
 	def create
 		@orderitem = OrderItem.new(order_item_params)
-		if @orderitem.save 
-			flash[:success] = "Order item was succesfully created"
-		else
-			render 'show'
-		end
+		@orderitem.cart = Cart.find(session[:cart_id])
+		@orderitem.save 
+		flash[:success] = "Order item was succesfully created"
 	end
 
 	def destroy

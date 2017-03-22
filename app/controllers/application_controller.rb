@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  # def current_cart
-   # @current_cart = Cart.find(session[:cart_id]) if session[:cart_id]
-  # end
+  def current_cart
+   @current_cart = Cart.find(session[:cart_id]) if session[:cart_id]
+  end
 
 end

@@ -13,7 +13,6 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:session][:password])
 			session[:user_id] = user.id
 			session[:cart_id] = @cart.id
-			debugger
 			flash[:success] = "Cart create"
 			#flash[:success] = "You have successfully logged in"
 			redirect_to user_path(user)
