@@ -12,7 +12,7 @@ class OrderitemsController < ApplicationController
 		@orderitem.cart = Cart.find(session[:cart_id])
 		@orderitem.order = Order.first	
 		if @orderitem.save 	
-			debugger	
+				
 			flash[:success] = "Order Item was succesfully created"
 			redirect_to cart_path(@orderitem.cart)
 			

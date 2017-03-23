@@ -10,16 +10,18 @@ class OrdersController < ApplicationController
 
 	def create
 		@order = Order.new(order_params)
+		@order.user = current_user
 		if @order.save
+			debugger
 			flash[:success] = "Your Order was successfully created"
-			redirect_to cart_path(Cart.find(session[:cart_id]))
+			redirect_to order_path(@order)
 		else
 			render 'new'
 		end
 	end
 
 	def show
-
+		@order = Order.find(params[:id])
 	end
 
 	def destroy

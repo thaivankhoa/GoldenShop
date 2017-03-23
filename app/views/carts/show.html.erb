@@ -13,10 +13,7 @@
 		<td><%= item.order_item_price %></td> 	
  	</tr>
  	<% end%>
-
- 	<% @cart.order_items.each do |item| %>
-			<%  %>
- 	<% end %>
+ 	
  	<td></td>
  	<td></td>
  	<td><strong>$</strong><%= Total_price(@cart.order_items).round(2) %></td>
