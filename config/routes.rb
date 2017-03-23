@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   delete 'logout', to: 'sessions#destroy'
 
+  get 'userorder/:id', to: 'users#userorder', :as => :userorder
+
   resources :categories
   
   resources :carts

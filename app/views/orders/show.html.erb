@@ -6,7 +6,7 @@
 		<th>Quantity</th>
 		<th>Price</th>
 	</tr>
-	<% Cart.find(session[:cart_id]).order_items.each do |item| %>
+	<% @order.order_items.each do |item| %>
 	<tr>
 		<td><%= item.order_item_title %></td> 
 		<td><%= item.quantity_order %></td> 

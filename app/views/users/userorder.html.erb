@@ -1,0 +1,27 @@
+<h1 class="custom_h1"> Welcome to <%= @user.username %>'s page </h1>
+
+<div class="row">
+	<div class="container">
+		<div align="center">
+			<%= image_tag @user.avatar.url(:thumb) if @user.avatar? %>
+		</div>
+	</div>
+</div>
+
+<h4 class="custom_h1"><%= @user.username %>'s orders</h4>
+
+<table class="table table-striped">
+	<tr class="active">
+		<th>Created At</th>
+		<th>Total price</th>
+		<th>Status</th>
+	</tr>
+	<% @user.orders.each do |order| %>
+	<tr>
+		<td><%= link_to order.created_at, order_path(order) %></td> 
+		<td><strong style="color: green">$</strong><%= order.total_price %></td> 
+		<td style="color: red"><%= "New" %></td> 	
+ 	</tr>
+ 	<% end%>
+
+</table>
