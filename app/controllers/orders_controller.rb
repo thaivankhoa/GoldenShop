@@ -11,8 +11,8 @@ class OrdersController < ApplicationController
 	def create
 		@order = Order.new(order_params)
 		@order.user = current_user
-
 		if @order.save
+
 			Cart.find(session[:cart_id]).order_items.each do |item|
 				item.order = @order
 				item.save

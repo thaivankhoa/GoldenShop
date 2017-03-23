@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
    @current_cart = Cart.find(session[:cart_id]) if session[:cart_id]
   end
 
+  def current_order
+    @current_order = Order.new
+  end
+
 end

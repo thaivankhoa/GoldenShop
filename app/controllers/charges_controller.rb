@@ -4,9 +4,11 @@ def new
 end
 
 def create
+  
   # Amount in cents
-  @amount = 500
-
+  order = Order.find(params[:order_id])
+  
+  (params[:amount].to_f.round(2) * 100).to_i
   customer = Stripe::Customer.create(
     :email => params[:stripeEmail],
     :card  => params[:stripeToken]
@@ -14,14 +16,18 @@ def create
 
   charge = Stripe::Charge.create(
     :customer    => customer.id,
-    :amount      => @amount,
+    :amount      => (params[:amount].to_f.round(2) * 100).to_i,
     :description => 'Rails Stripe customer',
     :currency    => 'usd'
   )
+  flash[:success] = "Thanks, you paid $ #{params[:amount]}"
+  order.update(status: "Done")
+  
+  redirect_to root_path
 
-rescue Stripe::CardError => e
-  flash[:error] = e.message
-  redirect_to charges_path
-end
+  rescue Stripe::CardError => e
+    flash[:error] = e.messagfe
+    redirect_to charges_path
+  end
 
 end
