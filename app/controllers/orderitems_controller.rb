@@ -13,12 +13,13 @@ class OrderitemsController < ApplicationController
 		@orderitem.order = Order.first	
 		if @orderitem.save 	
 				
-			flash[:success] = "Order Item was succesfully created"
+			flash[:success] = "Order Item was successfully created"
 			redirect_to cart_path(@orderitem.cart)
 			
 		else
+			flash[:danger] = "Order Item was unsuccessfully ceaterd"
 			redirect_to root_path
-			debugger
+			
 		end
 	end
 

@@ -17,7 +17,12 @@ class OrdersController < ApplicationController
 				item.order = @order
 				item.save
 			end	
-			debugger
+			# create new cart
+			Cart.find(session[:cart_id]).destroy
+			@cart = Cart.new
+			@cart.save
+			session[:cart_id] = @cart.id	
+			#
 			flash[:success] = "Your Order was successfully created"
 			redirect_to order_path(@order)
 		else
