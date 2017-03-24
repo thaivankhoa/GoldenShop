@@ -1,5 +1,6 @@
-<h1 class="custom_h1">Your Order</h1>
-
+<h1 class="custom_h1"><%= link_to @order.user.username, user_path(@order.user)%>'s Order</h1>
+<div align="center"><button class="btn-lg btn btn-primary"><%= @order.status %></button></div>
+</br>
 <table class="table table-striped">
   <tr class="active">
     <th>Item</th>
@@ -18,37 +19,38 @@
   <td></td>
   <td><strong>$</strong><%= @order.total_price %></td>
 </table>
+<% if @order.status == "New"%>
+    <%= form_tag charges_path, id:'chargeForm' do %>
 
-<%= form_tag charges_path, id:'chargeForm' do %>
+                        <% if flash[:error].present? %>
+                          <div id="error_explanation">
+                            <p><%= flash[:error] %></p>
+                          </div>
+                        <% end %>
 
-                    <% if flash[:error].present? %>
-                      <div id="error_explanation">
-                        <p><%= flash[:error] %></p>
-                      </div>
-                    <% end %>
-
-                  <script src="https://checkout.stripe.com/checkout.js"></script>
-                  <%= hidden_field_tag 'stripeToken' %>
-                  <%= hidden_field_tag 'amount', @order.total_price %>
-                  <%= hidden_field_tag 'stripeEmail' %>
-                  <%= hidden_field_tag 'order_id', @order.id %>
-                  <button id="btn-buy" type="button" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-ok"></span>Buy this!</button>
-<script>
-    var handler = StripeCheckout.configure({
-      key: '<%= Rails.configuration.stripe[:publishable_key] %>',
-      token: function(token, arg) {
-        document.getElementById("stripeToken").value = token.id;
-        document.getElementById("stripeEmail").value = token.email;
-        document.getElementById("chargeForm").submit();
-      }
-});
-document.getElementById('btn-buy').addEventListener('click', function(e) {
-      handler.open({
-        name: 'Learn Rails',
-        description: '<%= "Khoa" %> ($<%= @order.total_price %>)',
-        amount: document.getElementById("amount").value * 100
+                      <script src="https://checkout.stripe.com/checkout.js"></script>
+                      <%= hidden_field_tag 'stripeToken' %>
+                      <%= hidden_field_tag 'amount', @order.total_price %>
+                      <%= hidden_field_tag 'stripeEmail' %>
+                      <%= hidden_field_tag 'order_id', @order.id %>
+                      <button id="btn-buy" type="button" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span>Buy this!</button>
+    <script>
+        var handler = StripeCheckout.configure({
+          key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+          token: function(token, arg) {
+            document.getElementById("stripeToken").value = token.id;
+            document.getElementById("stripeEmail").value = token.email;
+            document.getElementById("chargeForm").submit();
+          }
     });
-    e.preventDefault();
-   })
-</script>
+    document.getElementById('btn-buy').addEventListener('click', function(e) {
+          handler.open({
+            name: 'Learn Rails',
+            description: '<%= "Khoa" %> ($<%= @order.total_price %>)',
+            amount: document.getElementById("amount").value * 100
+        });
+        e.preventDefault();
+       })
+    </script>
+    <% end %>
 <% end %>

@@ -18,8 +18,10 @@
  	<td></td>
  	<td><strong>$</strong><%= Total_price(@cart.order_items).round(2) %></td>
 </table>
-<%= form_for(:order, :url => orders_path,:html => {class: "form-horizontal", role: "form"}) do |f| %>
+		<%= form_for(:order, :url => orders_path,:html => {class: "form-horizontal", role: "form"}) do |f| %>
 		<%= f.hidden_field :total_price, value: Total_price(@cart.order_items).round(2), class: "form-control", placeholder: "Price of item" %>
 		<%= f.submit "Order", class: "btn btn-primary btn-lg" %>
 		<% end%>
 	</div>
+
+

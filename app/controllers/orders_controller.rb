@@ -1,13 +1,23 @@
 class OrdersController < ApplicationController
 
-	def index
-		
-	end
+	before_action :require_user, only: [:show]
 
+	before_action :require_admin, only: [:destroy, :edit, :update]
+
+	#index
+	def index
+		@orders = Order.all
+		@orders = Order.paginate(page: params[:page], per_page: 10)
+	end
+	#new
 	def new
 
 	end
-
+	#edit
+	def edit
+		@order = Order.find(params[:id])
+	end
+	#create
 	def create
 		@order = Order.new(order_params)
 		@order.user = current_user
@@ -29,18 +39,37 @@ class OrdersController < ApplicationController
 			render 'new'
 		end
 	end
-
+	#update
+	def update
+		@order = Order.find(params[:id])
+		
+		if @order.update(order_params)
+			
+			flash[:success] = "Order was succesfully updated"
+			redirect_to order_path(@order)
+		else
+			render 'edit'
+		end
+	end
+	#show
 	def show
 		@order = Order.find(params[:id])
 	end
-
+	#destroy
 	def destroy
 
 	end
 
 		private
 			def order_params
-				params.require(:order).permit(:total_price)
+				params.require(:order).permit(:status, :total_price)
+			end
+
+			def require_admin
+				if logged_in? and !current_user.admin?
+					flash[:danger] = "Only Admin can perform that action"
+					redirect_to root_path
+				end
 			end
 	
 

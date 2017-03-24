@@ -10,14 +10,14 @@ class OrderitemsController < ApplicationController
 	def create
 		@orderitem = OrderItem.new(order_item_params)
 		@orderitem.cart = Cart.find(session[:cart_id])
-		@orderitem.order = Order.first	
+		@orderitem.order = Order.last	
 		if @orderitem.save 	
 				
 			flash[:success] = "Order Item was successfully created"
 			redirect_to cart_path(@orderitem.cart)
 			
 		else
-			flash[:danger] = "Order Item was unsuccessfully ceaterd"
+			flash[:danger] = "Order Item was unsuccessfully created"
 			redirect_to root_path
 			
 		end

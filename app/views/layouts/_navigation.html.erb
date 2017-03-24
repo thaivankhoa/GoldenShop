@@ -51,6 +51,12 @@
           </ul>
         </li>
       </ul>
+      <!-- Check order for admin -->
+      <% if logged_in? and current_user.admin? %>
+        <ul class="nav navbar-nav">  
+          <li><%= link_to "All Orders", orders_path %></li>
+        </ul>
+      <% end %>
       <!-- Search -->    
       <ul class="navbar-form navbar-left"> 
         <div>

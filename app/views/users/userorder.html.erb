@@ -20,7 +20,15 @@
 	<tr>
 		<td><%= link_to order.created_at, order_path(order) %></td> 
 		<td><strong style="color: green">$</strong><%= order.total_price %></td> 
-		<td style="color: red"><%= order.status %></td> 	
+
+		<td>
+			<%= form_for(:order, :url => order_path(order),method: :put, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      			<%= f.select :status, options_for_select(["New","Preparing","Shipping","Done","Cancel refund"], order.status)%>
+      			<% if current_user.admin %>
+      				<%= f.submit "Update status", class: "btn-sm btn-primary btn"  %>
+    			<% end %>
+    		<% end%>   	
+   		</td> 
  	</tr>
  	<% end%>
 
