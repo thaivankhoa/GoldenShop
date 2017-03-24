@@ -1,4 +1,9 @@
-	<h1 class="custom_h1">All results for "<%= @search %>"</h1>
+
+	<% if @search == "" %>
+		<h1 class="custom_h1">All Item</h1>
+	<% else %>
+		<h1 class="custom_h1">All results for "<%= @search %>"</h1>
+	<% end %>
 <div align="center">
 	<%= will_paginate %>
 </div>

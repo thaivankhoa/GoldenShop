@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 	before_action :set_item, only: [:edit, :update, :show, :destroy]
 
 	
-	before_action :require_user, only: [:index, :show]
+	#before_action :require_user, only: [:show]
 	before_action :require_same_user, only: [:edit, :update, :destroy]
 
 	def index
