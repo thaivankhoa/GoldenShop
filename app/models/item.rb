@@ -11,4 +11,12 @@ class Item < ActiveRecord::Base
 
 	mount_uploader :image, ImageUploader
 
+	def self.search(search)
+	  	if search
+			where('title LIKE ?', "%#{search}%")
+		else
+	    	where('title LIKE ?', "%#{search}%")
+	  	end
+	end
+
 end

@@ -7,8 +7,8 @@ class ItemsController < ApplicationController
 	before_action :require_same_user, only: [:edit, :update, :destroy]
 
 	def index
-		@items = Item.all
-		@items = Item.paginate(page: params[:page], per_page: 5)
+  		@items = Item.search(params[:search]).paginate(page: params[:page], per_page: 5)
+		@search = params[:search]	
 	end
 
 	def new 
