@@ -1,7 +1,4 @@
+# Class Cart
 class Cart < ActiveRecord::Base
-	has_many :order_items
-	
-	# validates
-	
-
+  has_many :order_items
 end

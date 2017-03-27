@@ -1,8 +1,9 @@
+# RegistrationController
 class RegistrationController < ApplicationController
-	def create
+  def create
     @registration = Registration.new registration_params.merge(email: stripe_params["stripeEmail"],
                                                                card_token: stripe_params["stripeToken"])
-    raise "Please, check registration errors" unless @registration.valid?
+    raise 'Please, check registration errors' unless @registration.valid?
     @registration.process_payment
     @registration.save
     redirect_to @registration, notice: 'Registration was successfully created.'
@@ -12,7 +13,8 @@ class RegistrationController < ApplicationController
   end
 
   private
-    def stripe_params
-      params.permit :stripeEmail, :stripeToken
-    end
+
+  def stripe_params
+    params.permit :stripeEmail, :stripeToken
+  end
 end

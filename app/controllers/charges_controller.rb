@@ -1,13 +1,8 @@
+# ChargesController
 class ChargesController < ApplicationController
-
-def new
-end
-
-def create
-  
   # Amount in cents
   order = Order.find(params[:order_id])
-  
+
   (params[:amount].to_f.round(2) * 100).to_i
   customer = Stripe::Customer.create(
     :email => params[:stripeEmail],
@@ -22,12 +17,11 @@ def create
   )
   flash[:success] = "Thanks, you paid $ #{params[:amount]}"
   order.update(status: "Done")
-  
+
   redirect_to root_path
 
   rescue Stripe::CardError => e
     flash[:error] = e.messagfe
     redirect_to charges_path
   end
-
 end

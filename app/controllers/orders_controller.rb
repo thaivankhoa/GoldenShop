@@ -1,76 +1,64 @@
+# OrdersController
 class OrdersController < ApplicationController
+  before_action :require_user, only: [:show]
 
-	before_action :require_user, only: [:show]
+  before_action :require_admin, only: [:destroy, :edit, :update]
 
-	before_action :require_admin, only: [:destroy, :edit, :update]
+  def index
+    @orders = Order.all
+    @orders = Order.paginate(page: params[:page], per_page: 10)
+  end
 
-	#index
-	def index
-		@orders = Order.all
-		@orders = Order.paginate(page: params[:page], per_page: 10)
-	end
-	#new
-	def new
+  def edit
+    @order = Order.find(params[:id])
+  end
 
-	end
-	#edit
-	def edit
-		@order = Order.find(params[:id])
-	end
-	#create
-	def create
-		@order = Order.new(order_params)
-		@order.user = current_user
-		if @order.save
+  def create
+    @order = Order.new(order_params)
+    @order.user = current_user
+    if @order.save
+      Cart.find(session[:cart_id]).order_items.each do |item|
+        item.order = @order
+        item.save
+      end
+      # create new cart
+      Cart.find(session[:cart_id]).destroy
+      @cart = Cart.new
+      @cart.save
+      session[:cart_id] = @cart.id
+      #
+      flash[:success] = 'Your Order was successfully created'
+      redirect_to order_path(@order)
+    else
+      render 'new'
+    end
+  end
 
-			Cart.find(session[:cart_id]).order_items.each do |item|
-				item.order = @order
-				item.save
-			end	
-			# create new cart
-			Cart.find(session[:cart_id]).destroy
-			@cart = Cart.new
-			@cart.save
-			session[:cart_id] = @cart.id	
-			#
-			flash[:success] = "Your Order was successfully created"
-			redirect_to order_path(@order)
-		else
-			render 'new'
-		end
-	end
-	#update
-	def update
-		@order = Order.find(params[:id])
-		
-		if @order.update(order_params)
-			
-			flash[:success] = "Order was succesfully updated"
-			redirect_to order_path(@order)
-		else
-			render 'edit'
-		end
-	end
-	#show
-	def show
-		@order = Order.find(params[:id])
-	end
-	#destroy
-	def destroy
+  def update
+    @order = Order.find(params[:id])
 
-	end
+    if @order.update(order_params)
 
-		private
-			def order_params
-				params.require(:order).permit(:status, :total_price)
-			end
+      flash[:success] = 'Order was succesfully updated'
+      redirect_to order_path(@order)
+    else
+      render 'edit'
+    end
+  end
 
-			def require_admin
-				if logged_in? and !current_user.admin?
-					flash[:danger] = "Only Admin can perform that action"
-					redirect_to root_path
-				end
-			end
-	
+  def show
+    @order = Order.find(params[:id])
+  end
 
-end		
+  private
+
+  def order_params
+    params.require(:order).permit(:status, :total_price)
+  end
+
+  def require_admin
+    return unless logged_in? && !current_user.admin?
+    flash[:danger] = 'Only Admin can perform that action'
+    redirect_to root_path
+  end
+end

@@ -72,5 +72,4 @@ ActiveRecord::Schema.define(version: 20170323075923) do
     t.boolean  "admin",           default: false
     t.string   "avatar"
   end
-
 end

@@ -1,10 +1,6 @@
+# WelcomeController
 class WelcomeController < ApplicationController
+  def home; end
 
-	def home
-		
-	end
-
-	def about
-
-	end
+  def about; end
 end
