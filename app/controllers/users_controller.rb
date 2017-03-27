@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    flash[:danger] = 'User and all items createed by user have been deleted'
+    flash[:danger] = 'User and all items created by user have been deleted'
     if !current_user.admin?
       session[:user_id] = nil
     end

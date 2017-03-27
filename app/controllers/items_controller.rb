@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def require_same_user
-    return unless (current_user != @item.user) || !current_user.admin?
+    return if (current_user != @item.user) || !current_user.admin?
     flash[:danger] = 'You can only edit or delete your own items'
     redirect_to root_path
   end
