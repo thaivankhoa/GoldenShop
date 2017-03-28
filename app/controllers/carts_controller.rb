@@ -3,7 +3,6 @@ class CartsController < ApplicationController
   before_action :set_cart, only: [:show]
 
   def index
-    @carts = Cart.all
     @carts = Cart.paginate(page: params[:page], per_page: 5)
   end
 

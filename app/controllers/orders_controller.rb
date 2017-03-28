@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
   before_action :require_admin, only: [:destroy, :edit, :update]
 
   def index
-    @orders = Order.all
     @orders = Order.paginate(page: params[:page], per_page: 10)
   end
 
