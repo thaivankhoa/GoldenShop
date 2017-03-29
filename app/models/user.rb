@@ -2,7 +2,7 @@
 class User < ActiveRecord::Base
   has_many :items, dependent: :destroy
   has_many :orders
-  before_save { self.email = email.downcase }
+  # before_save { self.email = email.downcase }
 
   validates :username, presence: true,
              uniqueness: { case_sensitive: false },
