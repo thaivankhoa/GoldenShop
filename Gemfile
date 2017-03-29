@@ -45,6 +45,8 @@ gem 'stripe'
 gem 'rubocop', '~> 0.48.0', require: false
 # gem annotate
 gem 'annotate'
+# gem controller testing
+gem 'rails-controller-testing'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -10,7 +10,7 @@ RSpec.describe ItemsController, type: :controller do
 
     it 'render the index template' do
       get :index
-      it { should render_with_layout('index') }
+      expect(response).to render_template('index')
     end
   end
 end
