@@ -43,6 +43,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'stripe'
 #coding style
 gem 'rubocop', '~> 0.48.0', require: false
+# gem annotate
+gem 'annotate'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
